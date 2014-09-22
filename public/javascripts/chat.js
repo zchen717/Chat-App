@@ -7,8 +7,12 @@ ChatApp.Chat.prototype.sendMessage = function (message) {
 	this.socket.emit("chatMessage", message);
 };
 
-var socket = io('http://localhost');
-socket.on('addChatMessage', function (data) {
-  console.log(data);
-  $ul.prepend('<li>' + data + '</li>');
-});
+ChatApp.Chat.prototype.processCommand = function (input) {
+	var regex = /\/nick */;
+	if (regex.exec(input))
+		this.socket.emit("nicknameChangeRequest", input.slice(6));
+	} else {
+		console.log("not valid command");
+	}
+};
+

@@ -9,7 +9,13 @@
     <script src="/javascripts/chat_ui.js"></script>
     <script>
     $(document).ready(function () {
-      $('.submit-button').on("click", sendText);
+      $('.submit-button').on("click", function (event) {
+        parseText(event);
+      });
+      window.onbeforeunload = function () {
+        websocket.onclose = function () {};
+        websocket.close();
+      }
     });
     </script>
   </head>
