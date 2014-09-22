@@ -13,8 +13,7 @@
         parseText(event);
       });
       socket.on("nicknameChangeResult", function (message) {
-      	var $ul = $('ul');
-        console.log(message);
+      	var $ul = $('.messages-list');
         $ul.prepend('<li>' + message + '</li>');
       });
       window.onbeforeunload = function () {
@@ -26,9 +25,12 @@
   </head>
   
   <body>
+    <ul class="users-list">
+    </ul>
     <textarea name="input" class="chat-input"></textarea>
     <button class="submit-button">Submit</button>
-    <ul>
+    <ul class="messages-list">
     </ul>
+    
   </body>
 </html>
