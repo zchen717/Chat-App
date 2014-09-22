@@ -12,6 +12,11 @@
       $('.submit-button').on("click", function (event) {
         parseText(event);
       });
+      socket.on("nicknameChangeResult", function (message) {
+      	var $ul = $('ul');
+        console.log(message);
+        $ul.prepend('<li>' + message + '</li>');
+      });
       window.onbeforeunload = function () {
         websocket.onclose = function () {};
         websocket.close();

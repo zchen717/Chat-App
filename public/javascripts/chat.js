@@ -9,7 +9,7 @@ ChatApp.Chat.prototype.sendMessage = function (message) {
 
 ChatApp.Chat.prototype.processCommand = function (input) {
 	var regex = /\/nick */;
-	if (regex.exec(input))
+	if (regex.exec(input)) {
 		this.socket.emit("nicknameChangeRequest", input.slice(6));
 	} else {
 		console.log("not valid command");

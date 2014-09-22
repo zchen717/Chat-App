@@ -13,10 +13,7 @@ var sendText = function () {
 };
 
 var parseText = function (event) {
-	var regex = /\/nick */;
 	var data = getInput();
-	var input = regex.exec(data);
-		debugger;
 	if (data[0] === "/") {
 		chat.processCommand(data);
 	}	else {
