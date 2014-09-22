@@ -10,5 +10,14 @@ var sendText = function () {
 	var $ul = $('ul');
 	var input = getInput();
 	chat.sendMessage(input);
-	$ul.prepend('<li>' + input + '</li>');
 };
+
+var parseText = function (text) {
+	var regex = /\/nick */;
+	var input = regex.exec(data);
+	if (input) {
+		socket.emit('nicknameChangeRequest', input.slice(6));
+	}	else {
+		sendText();
+	}
+}
