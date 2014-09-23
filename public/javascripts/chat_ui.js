@@ -2,7 +2,7 @@ var socket = io();
 var chat = new ChatApp.Chat(socket);
 
 var getInput = function () {
-	var input = $("textarea").val();
+	var input = $("input").val();
 	return input;
 };
 
@@ -22,20 +22,23 @@ var parseText = function (event) {
 };
 
 var socket = io('http://localhost');
-socket.on('addChatMessage', function (message, nickname) {
+socket.on('addChatMessage', function (data) {
+	$(".room-name").html(data.room);
 	var $ul = $('.messages-list');
-  $ul.prepend('<li>' + nickname + ": " + message + '</li>');
+  $ul.prepend('<li>' + data.user + ": " + data.message + '</li>');
 });
 
-socket.on('systemMessage', function (message) {
+socket.on('systemMessage', function (data) {
+	$(".room-name").html(data.room);
 	var $ul = $('.messages-list');
-  $ul.prepend('<li>' + message + '</li>');
+  $ul.prepend('<li>' + data.message + '</li>');
 });
 
-socket.on("userList", function (usernames) {
+socket.on("userList", function (data) {
+	$(".room-name").html(data.room);
 	var $ul = $(".users-list");
 	$ul.empty();
-	usernames.forEach(function (username) {
+	data.users.forEach(function (username) {
 		$ul.append("<li>" + username + "</li>");
 	});
 })

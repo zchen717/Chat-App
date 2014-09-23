@@ -9,12 +9,15 @@
     <script src="/javascripts/chat_ui.js"></script>
     <script>
     $(document).ready(function () {
-      $('.submit-button').on("click", function (event) {
+      $('form').on("submit", function (event) {
+        event.preventDefault();
         parseText(event);
+        $(".chat-input").val("");
       });
-      socket.on("nicknameChangeResult", function (message) {
+      socket.on("nicknameChangeResult", function (data) {
       	var $ul = $('.messages-list');
-        $ul.prepend('<li>' + message + '</li>');
+        $ul.prepend('<li>' + data.message + '</li>');
+        $(".room-name").html(data.room);
       });
       window.onbeforeunload = function () {
         websocket.onclose = function () {};
@@ -25,10 +28,13 @@
   </head>
   
   <body>
+    <div class="room-name">lobby</div>
     <ul class="users-list">
     </ul>
-    <textarea name="input" class="chat-input"></textarea>
-    <button class="submit-button">Submit</button>
+    <form>
+      <input type="text" name="input" class="chat-input" value="">
+      <button class="submit-button">Submit</button>
+    </form>
     <ul class="messages-list">
     </ul>
     
